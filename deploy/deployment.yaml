@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-alerts-deployment
+  namespace: cloud-platform-monitoring-alerts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monitoring-alerts
+  template:
+    metadata:
+      labels:
+        app: monitoring-alerts
+    spec:
+      containers:
+      - name: monitoring-alerts
+        image: nginxinc/nginx-unprivileged:1.25-alpine
+        ports:
+        - containerPort: 8080
+        securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+          capabilities:
+            drop:
+              - ALL
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+          items:
+          - key: nginx.conf
+            path: nginx.conf
