@@ -15,26 +15,26 @@ spec:
         app.kubernetes.io/name: cloud-platform-monitoring-alerts
     spec:
       containers:
-      - name: monitoring-alerts
-        image: nginxinc/nginx-unprivileged:1.26-bookworm
-        ports:
-        - containerPort: 8080
-        securityContext:
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          seccompProfile:
-            type: RuntimeDefault
-          capabilities:
-            drop:
-              - ALL
-        volumeMounts:
-        - name: nginx-config
-          mountPath: /etc/nginx/nginx.conf
-          subPath: nginx.conf
+        - name: monitoring-alerts
+          image: nginxinc/nginx-unprivileged:1.26-bookworm
+          ports:
+            - containerPort: 8080
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
       volumes:
-      - name: nginx-config
-        configMap:
-          name: nginx-config
-          items:
-          - key: nginx.conf
-            path: nginx.conf
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+            items:
+              - key: nginx.conf
+                path: nginx.conf
