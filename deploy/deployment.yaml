@@ -12,10 +12,11 @@ spec:
     metadata:
       labels:
         app: monitoring-alerts
+        app.kubernetes.io/name: cloud-platform-monitoring-alerts
     spec:
       containers:
       - name: monitoring-alerts
-        image: nginxinc/nginx-unprivileged:1.25-alpine
+        image: nginxinc/nginx-unprivileged:1.26-bookworm
         ports:
         - containerPort: 8080
         securityContext:

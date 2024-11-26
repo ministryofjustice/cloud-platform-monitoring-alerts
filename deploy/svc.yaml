@@ -5,7 +5,7 @@ metadata:
   namespace: cloud-platform-monitoring-alerts
 spec:
   selector:
-    app: nginx
+    app: monitoring-alerts
   ports:
     - protocol: TCP
       port: 8080
