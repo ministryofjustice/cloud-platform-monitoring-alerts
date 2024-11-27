@@ -22,10 +22,6 @@ The `cloud-platform-monitoring-alerts` namespace is granted locked-down pod acce
 
 User namespace access to the service itself is controlled via [this NetworkPolicy](https://github.com/ministryofjustice/cloud-platform-environments/blob/main/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-monitoring-alerts/04-networkpolicy.yaml#L29).
 
-
-
-
-
 ## How to access
 
 Raise a PR against your Cloud Platform environment, adding the following to your `namespace` `labels`:
