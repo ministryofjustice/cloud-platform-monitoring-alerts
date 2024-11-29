@@ -32,7 +32,6 @@ component: monitoring-alerts-client
 
 Following merge and apply, you'll be able to make GET requests to the Prometheus `api/v1/` and Alertmanager `api/v2/` endpoints from your namespace workloads with a `curl` to either:
 
-
 ```
 monitoring-alerts-service.cloud-platform-monitoring-alerts:8080/prometheus
 monitoring-alerts-service.cloud-platform-monitoring-alerts:8080/alertmanager
