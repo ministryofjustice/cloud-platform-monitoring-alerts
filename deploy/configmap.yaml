@@ -20,7 +20,7 @@ data:
           if ($request_method !~ ^(GET)$ ) {
             return 405;
           }
-          proxy_passhttp://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/;
+          proxy_pass http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/;
         }
 
         location /alertmanager/ {
