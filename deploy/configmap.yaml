@@ -16,18 +16,18 @@ data:
             return 403;
         }
 
-        location /prometheus {
+        location /prometheus/ {
           if ($request_method !~ ^(GET)$ ) {
             return 405;
           }
-          proxy_pass http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/alerts;
+          proxy_passhttp://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/;
         }
 
-        location /alertmanager {
+        location /alertmanager/ {
           if ($request_method !~ ^(GET)$ ) {
             return 405;
           }
-          proxy_pass http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/alerts;
+          proxy_pass http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/;
         }  
       }
     }
