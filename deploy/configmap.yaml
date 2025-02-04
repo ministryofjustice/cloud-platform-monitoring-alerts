@@ -21,6 +21,7 @@ data:
             return 405;
           }
           proxy_pass http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/;
+          proxy_read_timeout 60s;
         }
 
         location /alertmanager/ {
@@ -28,6 +29,7 @@ data:
             return 405;
           }
           proxy_pass http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/;
+          proxy_read_timeout 60s;
         }  
       }
     }
