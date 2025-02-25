@@ -20,8 +20,8 @@ data:
           if ($request_method !~ ^(GET)$ ) {
             return 405;
           }
-          set $prometheus_backend "http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/";
-          proxy_pass $prometheus_backend;
+          set $prometheus_backend "http://prometheus-operated.monitoring.svc.cluster.local:9090";
+          proxy_pass $prometheus_backend/api/v1/;
           proxy_read_timeout 120s;
         }
 
@@ -29,8 +29,8 @@ data:
           if ($request_method !~ ^(GET)$ ) {
             return 405;
           }
-          set $alertmanager_backend "http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/";
-          proxy_pass $alertmanager_backend;
+          set $alertmanager_backend "http://alertmanager-operated.monitoring.svc.cluster.local:9093";
+          proxy_pass $alertmanager_backend/api/v2/;
           proxy_read_timeout 120s;
         }  
       }
