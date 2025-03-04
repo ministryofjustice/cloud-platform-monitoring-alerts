@@ -9,6 +9,7 @@ data:
       worker_connections 1024;
     }
     http {
+      resolver kube-dns.kube-system.svc.cluster.local valid=30s;
       server {
         listen 8080;
 
