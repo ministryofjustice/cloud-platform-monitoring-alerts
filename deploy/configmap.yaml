@@ -9,7 +9,8 @@ data:
       worker_connections 1024;
     }
     http {
-      resolver kube-dns.kube-system.svc.cluster.local valid=30s;
+      resolver 10.100.0.10 valid=10s;
+      error_log /var/log/nginx/error.log debug;
       server {
         listen 8080;
 
@@ -21,8 +22,7 @@ data:
           if ($request_method !~ ^(GET)$ ) {
             return 405;
           }
-          set $prometheus_backend "http://prometheus-operated.monitoring.svc.cluster.local:9090";
-          proxy_pass $prometheus_backend/api/v1/;
+          proxy_pass "http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/";
           proxy_read_timeout 120s;
         }
 
@@ -30,8 +30,7 @@ data:
           if ($request_method !~ ^(GET)$ ) {
             return 405;
           }
-          set $alertmanager_backend "http://alertmanager-operated.monitoring.svc.cluster.local:9093";
-          proxy_pass $alertmanager_backend/api/v2/;
+          proxy_pass "http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/";
           proxy_read_timeout 120s;
         }  
       }
