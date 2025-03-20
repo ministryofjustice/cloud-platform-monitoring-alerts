@@ -22,7 +22,8 @@ data:
           if ($request_method !~ ^(GET)$ ) {
             return 405;
           }
-          proxy_pass "http://prometheus-operated.monitoring.svc.cluster.local:9090/api/v1/";
+          set $prom_endpoint prometheus-operated.monitoring.svc.cluster.local;
+          proxy_pass "http://$prom_endpoint:9090/api/v1/";
           proxy_read_timeout 120s;
         }
 
@@ -30,7 +31,8 @@ data:
           if ($request_method !~ ^(GET)$ ) {
             return 405;
           }
-          proxy_pass "http://alertmanager-operated.monitoring.svc.cluster.local:9093/api/v2/";
+          set $am_endpoint alertmanager-operated.monitoring.svc.cluster.local;
+          proxy_pass "http://$am_endpoint:9093/api/v2/";
           proxy_read_timeout 120s;
         }  
       }
