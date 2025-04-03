@@ -33,7 +33,7 @@ spec:
               subPath: nginx.conf
           livenessProbe:
             httpGet:
-              path: /api/v1/status/runtimeinfo
+              path: /prometheus/status/runtimeinfo
               port: 8080
             initialDelaySeconds: 20
             periodSeconds: 120
