@@ -4,6 +4,23 @@ metadata:
   name: nginx-config
   namespace: cloud-platform-monitoring-alerts
 data:
+  health_check.sh: |
+    #!/bin/bash
+
+    PROMETHEUS_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://prometheus-operated.monitoring.svc.cluster.local:9090/-/ready)
+    if [ "$PROMETHEUS_STATUS" -ne 200 ]; then
+      echo "Prometheus is unhealthy"
+    exit 1
+    fi
+
+    ALERTMANAGER_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://alertmanager-operated.monitoring.svc.cluster.local:9093/-/healthy)
+    if [ "$ALERTMANAGER_STATUS" -ne 200 ]; then
+      echo "Alertmanager is unhealthy"
+    exit 1
+    fi
+
+    echo "Endpoints are healthy"
+    exit 0
   nginx.conf: |
     events {
     }

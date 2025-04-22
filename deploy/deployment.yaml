@@ -31,10 +31,15 @@ spec:
             - name: nginx-config
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
+            - name: health-check-script
+              mountPath: /usr/local/bin/health_check.sh
+              subPath: health_check.sh
           livenessProbe:
-            httpGet:
-              path: /prometheus/status/runtimeinfo
-              port: 8080
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - /usr/local/bin/health_check.sh
             initialDelaySeconds: 20
             periodSeconds: 120
       volumes:
@@ -44,3 +49,9 @@ spec:
             items:
               - key: nginx.conf
                 path: nginx.conf
+        - name: health-check-script
+          configMap:
+            name: nginx-config
+            items:
+              - key: health_check.sh
+                path: health_check.sh
