@@ -40,8 +40,8 @@ spec:
                 - /bin/bash
                 - -c
                 - /usr/local/bin/health_check.sh
-            initialDelaySeconds: 20
-            periodSeconds: 120
+            initialDelaySeconds: 10
+            periodSeconds: 30
       volumes:
         - name: nginx-config
           configMap:
@@ -55,3 +55,4 @@ spec:
             items:
               - key: health_check.sh
                 path: health_check.sh
+            defaultMode: 0755
