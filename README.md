@@ -22,7 +22,6 @@ The `cloud-platform-monitoring-alerts` namespace is granted locked-down pod acce
 
 User namespace access to the service itself is controlled via [this NetworkPolicy](https://github.com/ministryofjustice/cloud-platform-environments/blob/main/namespaces/live.cloud-platform.service.justice.gov.uk/cloud-platform-monitoring-alerts/04-networkpolicy.yaml#L29).
 
-
 ## Healthchecks (livenessProbe config)
 
 This service has a custom livenessProbe in the form of a bash script that periodically checks the health of the Prometheus and Alertmanager endpoints. Its not possible to define multiple endpoint checks for livenessProbe config so this gets around that issue by signalling a failure if either of the endpoints become unreachable.
