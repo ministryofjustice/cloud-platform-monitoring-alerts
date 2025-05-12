@@ -38,6 +38,22 @@ data:
           proxy_read_timeout 120s;
         }
 
+        location /thanos/ {
+          if ($request_method !~ ^(GET)$ ) {
+            return 405;
+          }
+          proxy_pass "http://thanos-query.monitoring.svc.cluster.local:9090/api/v1/";
+          proxy_read_timeout 120s;
+        }
+
+        location /thanos/-/ready {
+          if ($request_method !~ ^(GET)$ ) {
+            return 405;
+          }
+          proxy_pass "http://thanos-query.monitoring.svc.cluster.local:9090/-/ready";
+          proxy_read_timeout 120s;
+        }
+
         location /prometheus/ {
           if ($request_method !~ ^(GET)$ ) {
             return 405;
